@@ -21,8 +21,8 @@ template <typename elemT> class Matrix
 	typeD n();
 	typeD m(typeD);
 	typeD n(typeD);
-	elemT& at(const typeD m,const typeD n); // with index checking, throw(char*) in out of range
-	vector<elemT>& operator [] (const typeD); // without index checking
+	elemT& at(const typeD,const typeD); // element at (m,n) with index checking, throw(char*) in out of range
+	vector<elemT>& operator [] (const typeD); // element at [m][n] without index checking
 };
 
 template<typename elemT> Matrix<elemT>::Matrix()
