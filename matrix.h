@@ -24,18 +24,18 @@ template <typename Elem> class Matrix
 	vector<Elem>& operator [] (const Index); // element at [m][n] without index checking
 };
 
-template<typename Elem> Matrix<Elem>::Matrix()
+inline template<typename Elem> Matrix<Elem>::Matrix()
 {
     ;
 }
 
-template<typename Elem> Matrix<Elem>::Matrix(Index newm, Index newn)
+inline template<typename Elem> Matrix<Elem>::Matrix(Index newm, Index newn)
 {
     this->m(newm);
     this->n(newn);
 }
 
-template<typename Elem> Matrix<Elem>::Matrix(Index newm, Index newn, Elem* init)
+inline template<typename Elem> Matrix<Elem>::Matrix(Index newm, Index newn, Elem* init)
 {
     this->m(newm);
     this->n(newn);
@@ -45,17 +45,17 @@ template<typename Elem> Matrix<Elem>::Matrix(Index newm, Index newn, Elem* init)
     	    (this->at(i,j)=*(init+this->n()*i+j));
 }
 
-template<typename Elem> Matrix<Elem>::~Matrix()
+inline template<typename Elem> Matrix<Elem>::~Matrix()
 {
     ;
 }
 
-template<typename Elem> Index Matrix<Elem>::m()
+inline template<typename Elem> Index Matrix<Elem>::m()
 {
     return data.size();
 }
 
-template<typename Elem> Index Matrix<Elem>::n()
+inline template<typename Elem> Index Matrix<Elem>::n()
 {
     Index max=0;
     for(typename vector<vector<Elem>>::iterator i=data.begin();i!=data.end();i++)
@@ -64,13 +64,13 @@ template<typename Elem> Index Matrix<Elem>::n()
     return max;
 }
 
-template<typename Elem> Index Matrix<Elem>::m(Index newm)
+inline template<typename Elem> Index Matrix<Elem>::m(Index newm)
 {
     data.resize(newm);
     return this->m();
 }
 
-template<typename Elem> Index Matrix<Elem>::n(Index newn)
+inline template<typename Elem> Index Matrix<Elem>::n(Index newn)
 {
     for(typename vector<vector<Elem>>::iterator i=data.begin();i!=data.end();i++)
         i->resize(newn);
