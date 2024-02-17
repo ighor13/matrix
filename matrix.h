@@ -6,36 +6,36 @@
 using namespace std;
 
 typedef unsigned int Index;
-template <typename elemT> class Matrix
+template <typename Elem> class Matrix
 {
     private:
-	vector<vector<elemT>> data;
+	vector<vector<Elem>> data;
 
     public:
 	Matrix();
 	Matrix(Index m,Index n);
-	Matrix(Index m,Index n, elemT*);
+	Matrix(Index m,Index n, Elem*);
 	~Matrix();
 	Index m();
 	Index n();
 	Index m(Index);
 	Index n(Index);
-	elemT& at(const Index,const Index); // element at (m,n) with index checking, throw(char*) in out of range
-	vector<elemT>& operator [] (const Index); // element at [m][n] without index checking
+	Elem& at(const Index,const Index); // element at (m,n) with index checking, throw(char*) in out of range
+	vector<Elem>& operator [] (const Index); // element at [m][n] without index checking
 };
 
-template<typename elemT> Matrix<elemT>::Matrix()
+template<typename Elem> Matrix<Elem>::Matrix()
 {
     ;
 }
 
-template<typename elemT> Matrix<elemT>::Matrix(Index newm, Index newn)
+template<typename Elem> Matrix<Elem>::Matrix(Index newm, Index newn)
 {
     this->m(newm);
     this->n(newn);
 }
 
-template<typename elemT> Matrix<elemT>::Matrix(Index newm, Index newn, elemT* init)
+template<typename Elem> Matrix<Elem>::Matrix(Index newm, Index newn, Elem* init)
 {
     this->m(newm);
     this->n(newn);
@@ -45,39 +45,39 @@ template<typename elemT> Matrix<elemT>::Matrix(Index newm, Index newn, elemT* in
     	    (this->at(i,j)=*(init+this->n()*i+j));
 }
 
-template<typename elemT> Matrix<elemT>::~Matrix()
+template<typename Elem> Matrix<Elem>::~Matrix()
 {
     ;
 }
 
-template<typename elemT> Index Matrix<elemT>::m()
+template<typename Elem> Index Matrix<Elem>::m()
 {
     return data.size();
 }
 
-template<typename elemT> Index Matrix<elemT>::n()
+template<typename Elem> Index Matrix<Elem>::n()
 {
     Index max=0;
-    for(typename vector<vector<elemT>>::iterator i=data.begin();i!=data.end();i++)
+    for(typename vector<vector<Elem>>::iterator i=data.begin();i!=data.end();i++)
         if(max<i->size())
             max=i->size();
     return max;
 }
 
-template<typename elemT> Index Matrix<elemT>::m(Index newm)
+template<typename Elem> Index Matrix<Elem>::m(Index newm)
 {
     data.resize(newm);
     return this->m();
 }
 
-template<typename elemT> Index Matrix<elemT>::n(Index newn)
+template<typename Elem> Index Matrix<Elem>::n(Index newn)
 {
-    for(typename vector<vector<elemT>>::iterator i=data.begin();i!=data.end();i++)
+    for(typename vector<vector<Elem>>::iterator i=data.begin();i!=data.end();i++)
         i->resize(newn);
     return this->n();
 }
 
-inline template<typename elemT> elemT& Matrix<elemT>::at(const Index m, const Index n)
+inline template<typename Elem> Elem& Matrix<Elem>::at(const Index m, const Index n)
 {
     if(m<this->m()&&n<this->n())
         return data[m][n];
@@ -85,7 +85,7 @@ inline template<typename elemT> elemT& Matrix<elemT>::at(const Index m, const In
 	throw (char*) "Matrix index out of range\n";
 }
 
-inline template<typename elemT> vector<elemT>& Matrix<elemT>::operator[](const Index k)
+inline template<typename Elem> vector<Elem>& Matrix<Elem>::operator[](const Index k)
 {
     return this->data[k]; 
 }
