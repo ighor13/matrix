@@ -27,7 +27,7 @@ template <typename elemT> class Matrix
 
 template<typename elemT> Matrix<elemT>::Matrix()
 {
-    ;
+     ;
 }
 
 template<typename elemT> Matrix<elemT>::Matrix(typeD newm, typeD newn)
