@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 typedef unsigned int Index;
 template <typename Elem> class Matrix
 {
@@ -121,25 +120,39 @@ template<typename Elem> Elem Matrix<Elem>::Minor(Index m, Index n)
     Matrix<Elem> minor=*this;
     minor.DeleteRow(m);
     minor.DeleteColumn(n);
-
     return minor.Determinant();
 }
 
 template<typename Elem> Elem Matrix<Elem>::Determinant()
 {
-    if(this->m()==this->n())
-	if(this->m()==1)
-	    return this->at(0,0);
+    if(this->m()!=0&&this->n()!=0)
+    {
+	if(this->m()==this->n())
+	    if(this->m()==1&&this->n()==1)
+		return this->at(0,0);
+	    else
+	    {
+		Elem d=0;
+		Index k=0;
+		unsigned nonzerocount=data[0].size();
+		for(Index i=0;i<this->m();i++)
+		{
+		    unsigned c=0;
+		    for(Index j=0;j<this->m();j++)
+			if(this->at(i,j)!=0)
+			    c++;
+		    if(c<nonzerocount)
+			nonzerocount=c; k=i;
+		}
+		for(Index i=0;i<this->m();i++)
+		    d+=this->pow(-1,i+1+k+1)*this->at(k,i)*this->Minor(k,i);
+		return d;
+	    }
 	else
-	{
-	    Elem d=0;
-	    Index k=0;
-	    for(Index i=0;i<this->m();i++)
-		d+=this->pow(-1,i+1+k+1)*this->at(k,i)*this->Minor(k,i);
-	    return d;
-	}
+	    throw(char*) "Еhe matrix must be square for Determinant()";
+    }
     else
-	throw(char*) "Еhe matrix must be square for Determinant()";
+	throw(char*) "Еhe matrix must not be zero";
 }
 
 #endif

@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 	cout<<endl;
     }
     cout<<"----------------------------------------------------------------------------------------"<<endl;
-    cout<<m.Determinant()<<endl;
+    cout<<"det(A)="<<m.Determinant()<<endl;
 
     return 0;
 }
