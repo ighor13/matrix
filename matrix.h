@@ -3,6 +3,8 @@
 
 #include <vector>
 
+// copyright (c) 2024 Ighor Poteryakhin ighor@ighor.ru
+
 using namespace std;
 
 typedef unsigned int Index;
