@@ -22,6 +22,7 @@ template <typename Elem> class Matrix
 	Matrix& DeleteRow(Index);
 	Matrix& DeleteColumn(Index);
 	Elem Minor(Index, Index);
+	Matrix<Elem> Transpose();
 	Elem Determinant();
     private:
 	int pow (int, Index);
@@ -155,18 +156,44 @@ template<typename Elem> Elem Matrix<Elem>::Determinant()
 	throw(char*) "Еhe matrix must not be zero";
 }
 
+
+template <typename Elem> Matrix<Elem> Matrix<Elem>::Transpose()
+{
+    Matrix<Elem> result(this->n(),this->m()); // MxN->NxM
+    for(Index i=0;i<result.m();i++)
+        for(Index j=0;j<result.n();j++)
+	    result[i][j]=data[j][i];
+    return result;
+}
+
 template<typename Elem> Matrix<Elem> operator+ (Matrix<Elem> first, Matrix<Elem> second)
 {
     if(first.m()==second.m()&&first.n()==second.n())
     {
 	Matrix <Elem> result(first.m(),first.n());
-	for(int i=0;i<result.m();i++)
-	    for(int j=0;j<result.n();j++)
+	for(Index i=0;i<result.m();i++)
+	    for(Index j=0;j<result.n();j++)
 		result[i][j]=first[i][j]+second[i][j];
 	return result;
     }
     else
 	throw(char*) "Added matrices must have equal sizes";
+}
+
+
+template<typename Elem> Matrix<Elem> operator* (Matrix<Elem> first, Matrix<Elem> second)
+{
+    if(first.m()==second.n())
+    {
+	Matrix <Elem> result(first.m(),second.n());
+	for(Index i=0;i<result.m();i++)
+	    for(Index j=0;j<result.n();j++)
+		for(Index k=0;k<first.n();k++)
+			result[i][j]+=first[i][k]*second[k][j];
+	return result;
+    }
+    else
+	throw(char*) "First matrix m() must have equal to second matrix n(n)";
 }
 
 #endif
