@@ -180,6 +180,15 @@ template<typename Elem> Matrix<Elem> operator+ (Matrix<Elem> first, Matrix<Elem>
 	throw(char*) "Added matrices must have equal sizes";
 }
 
+template<typename Elem> Matrix<Elem> operator* (Elem lambda, Matrix<Elem> M)
+{
+    Matrix <Elem> result(M.m(),M.n());
+    for(Index i=0;i<M.m();i++)
+        for(Index j=0;j<M.n();j++)
+	    result[i][j]=lambda*M[i][j];
+    return result;
+}
+
 
 template<typename Elem> Matrix<Elem> operator* (Matrix<Elem> first, Matrix<Elem> second)
 {
