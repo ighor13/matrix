@@ -166,7 +166,6 @@ template<typename Elem> Elem Matrix<Elem>::Determinant()
 	throw(char*) "Еhe matrix must not be zero";
 }
 
-
 template <typename Elem> Matrix<Elem> Matrix<Elem>::Transpose()
 {
     Matrix<Elem> result(this->n(),this->m()); // MxN->NxM
@@ -291,7 +290,6 @@ template<typename Elem> Matrix<Elem> operator* (Matrix<Elem> M, Elem lambda)
 	    result[i][j]=lambda*M[i][j];
     return result;
 }
-
 
 template<typename Elem> Matrix<Elem> operator* (Matrix<Elem> first, Matrix<Elem> second)
 {
