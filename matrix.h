@@ -5,12 +5,10 @@
 
 using namespace std;
 
+
 typedef unsigned int Index;
 template <typename Elem> class Matrix
 {
-    private:
-	vector<vector<Elem>> data;
-
     public:
 	Matrix();
 	Matrix(Index m,Index n);
@@ -22,7 +20,22 @@ template <typename Elem> class Matrix
 	Index n(Index);
 	Elem& at(const Index,const Index); // element at (m,n) with index checking, throw(char*) in out of range
 	vector<Elem>& operator [] (const Index); // element at [m][n] without index checking
+	Matrix& DeleteRow(Index);
+	Matrix& DeleteColumn(Index);
+	Elem Minor(Index, Index);
+	Elem Determinant();
+    private:
+	int pow (int, Index);
+	vector<vector<Elem>> data;
 };
+
+inline template<typename Elem> int Matrix<Elem>::pow(int x,Index n)
+{
+    Elem p=1;
+    for(Index i=0;i<n;i++)
+	p*=x;
+    return p;
+}
 
 inline template<typename Elem> Matrix<Elem>::Matrix()
 {
@@ -88,6 +101,45 @@ inline template<typename Elem> Elem& Matrix<Elem>::at(const Index m, const Index
 inline template<typename Elem> vector<Elem>& Matrix<Elem>::operator[](const Index k)
 {
     return this->data[k]; 
+}
+
+inline template<typename Elem> Matrix<Elem>& Matrix<Elem>::DeleteRow(Index k)
+{
+    data.erase(data.begin()+k);
+    return *this;
+}
+
+inline template<typename Elem> Matrix<Elem>& Matrix<Elem>::DeleteColumn(Index k)
+{
+    for(typename vector<vector<Elem>>::iterator i=data.begin();i!=data.end();i++)
+	i->erase(i->begin()+k);
+    return *this;
+}
+
+template<typename Elem> Elem Matrix<Elem>::Minor(Index m, Index n)
+{
+    Matrix<Elem> minor=*this;
+    minor.DeleteRow(m);
+    minor.DeleteColumn(n);
+
+    return minor.Determinant();
+}
+
+template<typename Elem> Elem Matrix<Elem>::Determinant()
+{
+    if(this->m()==this->n())
+	if(this->m()==1)
+	    return this->at(0,0);
+	else
+	{
+	    Elem d=0;
+	    Index k=0;
+	    for(Index i=0;i<this->m();i++)
+		d+=this->pow(-1,i+1+k+1)*this->at(k,i)*this->Minor(k,i);
+	    return d;
+	}
+    else
+	throw(char*) "Еhe matrix must be square for Determinant()";
 }
 
 #endif

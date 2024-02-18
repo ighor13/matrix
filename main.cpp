@@ -7,42 +7,34 @@ using namespace std;
 
 typedef long double elem;
 
-const unsigned m=4;
-const unsigned n=4;
+const unsigned dimm=4;
+const unsigned dimn=4;
 
 int main(int argc, char* argv[])
 {
-
-    elem M[m][n]=
+    elem M[dimm][dimn]=
     {
-	{6,		2,		-10,		4.1111111111	},
-	{-5,		-7.77777777777,	-4,		1		},
-	{2,		4,		-2,		-6		},
-	{3,		0,		-5,		4		},
+	{6,		2,		-10,		4	},
+	{-5,		-7,		-4,		1	},
+	{2,		4,		-2,		-6	},
+	{3,		0,		-5,		4	},
     }
     ;
 
     cout<<"----------------------------------------------------------------------------------------"<<endl;
     
-    Matrix<elem> m(4,4,(elem*)M);
+    Matrix<elem> m(dimm,dimn,(elem*)M);
 
-    m.m(5);
-    m.n(5);
-    
 //    cout.setf(ios::scientific);
     
     for(unsigned i=0;i<m.m();i++)
     {
 	for(unsigned j=0;j<m.n();j++)
 	    cout<<setw(10)<<setprecision(7)<<m.at(i,j);
-
-	printf("\n");
+	cout<<endl;
     }
-
     cout<<"----------------------------------------------------------------------------------------"<<endl;
-    cout<<setprecision(5)<<m[1][1]<<endl;
-    m[1][1]=(elem)-199.1333333;
-    cout<<setprecision(10)<<m[1][1]<<endl;
+    cout<<m.Determinant()<<endl;
 
     return 0;
 }
