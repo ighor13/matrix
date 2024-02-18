@@ -57,6 +57,27 @@ int main(int argc, char* argv[])
     cout<<"-m*m.Inverse()--------------------------------------------------------------------------"<<endl;
     print(m*m.Inverse(),2);
     cout<<"----------------------------------------------------------------------------------------"<<endl;
+    
+    vector<elem> r=m.Row(1);
+    cout<<"-row1-of-m------------------------------------------------------------------------------"<<endl;
+    for(vector<elem>::iterator i=r.begin();i!=r.end();i++)
+        cout<<setw(10)<<setprecision(2)<<*i;
+    cout<<endl;
+    cout<<"----------------------------------------------------------------------------------------"<<endl;
+
+    vector<elem> c=m.Transpose().Column(2);
+    cout<<"-col2-of-m.Transpose()------------------------------------------------------------------"<<endl;
+    for(vector<elem>::iterator i=c.begin();i!=c.end();i++)
+        cout<<setw(10)<<setprecision(2)<<*i;
+    cout<<endl;
+    cout<<"----------------------------------------------------------------------------------------"<<endl;
+
+    vector<elem> d=m.Inverse().Column(3);
+    cout<<"-col3-of-m.Inverse()--------------------------------------------------------------------"<<endl;
+    for(vector<elem>::iterator i=d.begin();i!=d.end();i++)
+        cout<<setw(10)<<setprecision(4)<<*i;
+    cout<<endl;
+    cout<<"----------------------------------------------------------------------------------------"<<endl;
 
     try
     {

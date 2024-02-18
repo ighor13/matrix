@@ -29,6 +29,8 @@ template <typename Elem> class Matrix
 	Matrix<Elem> AddColumn(Index,Index,Elem); //col1+=col2*k
 	Matrix<Elem> AddRow(Index,Index); // the same k=1
 	Matrix<Elem> AddColumn(Index,Index); //the same k=1
+	vector<Elem> Row(Index);
+	vector<Elem> Column(Index);
     private:
 	int pow (int, Index);
 	vector<vector<Elem>> data;
@@ -206,6 +208,22 @@ template <typename Elem> Matrix<Elem> Matrix<Elem>::AddRow(Index first, Index se
 template <typename Elem> Matrix<Elem> Matrix<Elem>::AddColumn(Index first, Index second)
 {
     return this->AddColumn(first,second,1);
+}
+
+template <typename Elem> vector<Elem> Matrix<Elem>::Row(Index k)
+{
+    vector<Elem> result;
+    for(Index i=0;i<this->n();i++)
+	result.push_back(this->at(k,i));
+    return result;
+}
+
+template <typename Elem> vector<Elem> Matrix<Elem>::Column(Index k)
+{
+    vector<Elem> result;
+    for(Index i=0;i<this->m();i++)
+	result.push_back(this->at(i,k));
+    return result;
 }
 
 template<typename Elem> Matrix<Elem> operator+ (Matrix<Elem> first, Matrix<Elem> second)
