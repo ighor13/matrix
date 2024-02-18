@@ -155,4 +155,18 @@ template<typename Elem> Elem Matrix<Elem>::Determinant()
 	throw(char*) "Еhe matrix must not be zero";
 }
 
+template<typename Elem> Matrix<Elem> operator+ (Matrix<Elem> first, Matrix<Elem> second)
+{
+    if(first.m()==second.m()&&first.n()==second.n())
+    {
+	Matrix <Elem> result(first.m(),first.n());
+	for(int i=0;i<result.m();i++)
+	    for(int j=0;j<result.n();j++)
+		result[i][j]=first[i][j]+second[i][j];
+	return result;
+    }
+    else
+	throw(char*) "Added matrices must have equal sizes";
+}
+
 #endif

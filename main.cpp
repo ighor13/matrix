@@ -23,18 +23,21 @@ int main(int argc, char* argv[])
 
     cout<<"----------------------------------------------------------------------------------------"<<endl;
     
-    Matrix<elem> m(dimm,dimn,(elem*)M);
+    Matrix<elem> m1(dimm,dimn,(elem*)M);
+    Matrix<elem> m2=m1;
+    Matrix<elem> s=m1+m2;//=m2+m1;
+    
 
 //    cout.setf(ios::scientific);
     
-    for(unsigned i=0;i<m.m();i++)
+    for(unsigned i=0;i<s.m();i++)
     {
-	for(unsigned j=0;j<m.n();j++)
-	    cout<<setw(10)<<setprecision(7)<<m.at(i,j);
+	for(unsigned j=0;j<s.n();j++)
+	    cout<<setw(10)<<setprecision(7)<<s.at(i,j);
 	cout<<endl;
     }
     cout<<"----------------------------------------------------------------------------------------"<<endl;
-    cout<<"det(A)="<<m.Determinant()<<endl;
+    cout<<"det(A)="<<s.Determinant()<<endl;
 
     return 0;
 }
