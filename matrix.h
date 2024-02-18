@@ -21,9 +21,10 @@ template <typename Elem> class Matrix
 	vector<Elem>& operator [] (const Index); // element at [m][n] without index checking
 	Matrix& DeleteRow(Index);
 	Matrix& DeleteColumn(Index);
+	Elem Determinant();
 	Elem Minor(Index, Index);
 	Matrix<Elem> Transpose();
-	Elem Determinant();
+	Matrix<Elem> Inverse();
     private:
 	int pow (int, Index);
 	vector<vector<Elem>> data;
@@ -166,6 +167,17 @@ template <typename Elem> Matrix<Elem> Matrix<Elem>::Transpose()
     return result;
 }
 
+template <typename Elem> Matrix<Elem> Matrix<Elem>::Inverse()
+{
+    Matrix<Elem> result(this->m(),this->n()); // MxN->MxN and M=N, otherwise exception will be thrown in Determinant()
+    for(Index i=0;i<result.m();i++)
+        for(Index j=0;j<result.n();j++)
+	    result[i][j]=this->pow(-1,i+1+j+1)*this->Minor(i,j);;
+    result=result.Transpose();
+    result=(1/this->Determinant())*result;
+    return result;
+}
+
 template<typename Elem> Matrix<Elem> operator+ (Matrix<Elem> first, Matrix<Elem> second)
 {
     if(first.m()==second.m()&&first.n()==second.n())
@@ -180,7 +192,21 @@ template<typename Elem> Matrix<Elem> operator+ (Matrix<Elem> first, Matrix<Elem>
 	throw(char*) "Added matrices must have equal sizes";
 }
 
+template<typename Elem> Matrix<Elem> operator- (Matrix<Elem> first, Matrix<Elem> second)
+{
+    return first+(Elem)-1*second;
+}
+
 template<typename Elem> Matrix<Elem> operator* (Elem lambda, Matrix<Elem> M)
+{
+    Matrix <Elem> result(M.m(),M.n());
+    for(Index i=0;i<M.m();i++)
+        for(Index j=0;j<M.n();j++)
+	    result[i][j]=lambda*M[i][j];
+    return result;
+}
+
+template<typename Elem> Matrix<Elem> operator* (Matrix<Elem> M, Elem lambda)
 {
     Matrix <Elem> result(M.m(),M.n());
     for(Index i=0;i<M.m();i++)

@@ -10,6 +10,16 @@ typedef long double elem;
 const unsigned dimm=3;
 const unsigned dimn=4;
 
+void print(Matrix<elem> m, unsigned precision=7)
+{
+    for(unsigned i=0;i<m.m();i++)
+    {
+	for(unsigned j=0;j<m.n();j++)
+	    cout<<setw(10)<<setprecision(precision)<<m.at(i,j);
+	cout<<endl;
+    }
+}
+
 int main(int argc, char* argv[])
 {
     elem M[dimm][dimn]=
@@ -21,26 +31,25 @@ int main(int argc, char* argv[])
     }
     ;
 
+    elem iM[4][4]=
+    {
+	{6,		2,		-10,		4	},
+	{-5,		-7,		-4,		1	},
+	{2,		4,		-2,		-6	},
+	{3,		0,		-5,		4	},
+    }
+    ;
+
     Matrix<elem> m1(dimm,dimn,(elem*)M);
 
     cout<<"-m1--------------------------------------------------------------------------------------"<<endl;
-    for(unsigned i=0;i<m1.m();i++)
-    {
-	for(unsigned j=0;j<m1.n();j++)
-	    cout<<setw(10)<<setprecision(7)<<m1.at(i,j);
-	cout<<endl;
-    }
+    print(m1);
     cout<<"----------------------------------------------------------------------------------------"<<endl;
     
     Matrix<elem> m2=m1.Transpose();
 
     cout<<"-m2--------------------------------------------------------------------------------------"<<endl;
-    for(unsigned i=0;i<m2.m();i++)
-    {
-	for(unsigned j=0;j<m2.n();j++)
-	    cout<<setw(10)<<setprecision(7)<<m2.at(i,j);
-	cout<<endl;
-    }
+    print(m2);
     cout<<"----------------------------------------------------------------------------------------"<<endl;
 
     Matrix<elem> p=m1*m2;
@@ -49,29 +58,32 @@ int main(int argc, char* argv[])
 //    cout.setf(ios::scientific);
     
     cout<<"-p--------------------------------------------------------------------------------------"<<endl;
-    for(unsigned i=0;i<p.m();i++)
-    {
-	for(unsigned j=0;j<p.n();j++)
-	    cout<<setw(10)<<setprecision(7)<<p.at(i,j);
-	cout<<endl;
-    }
+    print(p);
     cout<<"----------------------------------------------------------------------------------------"<<endl;
 
-    Matrix<elem> s=p+p;//=m2+m1;
-    s=(elem)2*s;
+    Matrix<elem> s=p-((elem)2)*p;
     cout<<"-s--------------------------------------------------------------------------------------"<<endl;
-    for(unsigned i=0;i<s.m();i++)
-    {
-	for(unsigned j=0;j<s.n();j++)
-	    cout<<setw(10)<<setprecision(7)<<s.at(i,j);
-	cout<<endl;
-    }
+    print(s);
     cout<<"----------------------------------------------------------------------------------------"<<endl;
 
+    Matrix<elem> im(4,4,(elem*)iM);
+    cout<<"-im--------------------------------------------------------------------------------------"<<endl;
+    print(im);
+    cout<<"----------------------------------------------------------------------------------------"<<endl;
+
+    Matrix<elem> ir=im.Inverse();
+    cout<<"-ir--------------------------------------------------------------------------------------"<<endl;
+    print(ir);
+    cout<<"----------------------------------------------------------------------------------------"<<endl;
+
+    Matrix<elem> r=im*ir;
+    cout<<"-r=ir*im--------------------------------------------------------------------------------"<<endl;
+    print(r,2);
+    cout<<"----------------------------------------------------------------------------------------"<<endl;
 
     try
     {
-        cout<<"det(A)="<<s.Determinant()<<endl;
+        cout<<"det(im)="<<setprecision(7)<<im.Determinant()<<endl;
     }
     catch(char* err)
     {
