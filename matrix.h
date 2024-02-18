@@ -208,7 +208,6 @@ template <typename Elem> Matrix<Elem> Matrix<Elem>::Triangular()
 		    }
 		}
 	}
-
     return result;
 }
 
