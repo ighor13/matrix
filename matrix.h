@@ -25,6 +25,7 @@ template <typename Elem> class Matrix
 	Elem Minor(Index, Index);
 	Matrix<Elem> Transpose();
 	Matrix<Elem> Inverse();
+	Matrix<Elem> Triangular();
 	Matrix<Elem> AddRow(Index,Index,Elem); //row1+=row2*k
 	Matrix<Elem> AddColumn(Index,Index,Elem); //col1+=col2*k
 	Matrix<Elem> AddRow(Index,Index); // the same k=1
@@ -181,6 +182,33 @@ template <typename Elem> Matrix<Elem> Matrix<Elem>::Inverse()
 	    result[i][j]=this->pow(-1,i+1+j+1)*this->Minor(i,j);;
     result=result.Transpose();
     result=(1/this->Determinant())*result;
+    return result;
+}
+
+template <typename Elem> Matrix<Elem> Matrix<Elem>::Triangular()
+{
+    Matrix<Elem> result=*this;
+    
+    for(Index i=1;i<result.n();i++)
+	for(Index j=0;j<i;j++)
+	{
+	    if(result.at(j,j)!=0)
+		result=result.AddRow(i,j,-(result.at(i,j)/result.at(j,j)));
+	    else
+		if(result.at(i,j)!=0)
+		{
+		    vector<Elem> I=result.Row(i);
+		    vector<Elem> J=result.Row(j);
+		    for(typename vector<Elem>::iterator k=I.begin();k!=I.end();k++)
+			*k=-*k;
+		    for(Index k=0;k<result.n();k++)
+		    {
+			result.at(j,k)=I[k];
+			result.at(i,k)=J[k];
+		    }
+		}
+	}
+
     return result;
 }
 
