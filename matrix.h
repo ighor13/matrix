@@ -52,6 +52,11 @@ inline template<typename Elem> Matrix<Elem>::Matrix()
     ;
 }
 
+inline template<typename Elem> Matrix<Elem>::~Matrix()
+{
+    ;
+}
+
 inline template<typename Elem> Matrix<Elem>::Matrix(Index newm, Index newn)
 {
     this->m(newm);
@@ -66,11 +71,6 @@ inline template<typename Elem> Matrix<Elem>::Matrix(Index newm, Index newn, Elem
     for(Index i=0;i<this->m();i++)
         for(Index j=0;j<this->n();j++)
     	    (this->at(i,j)=*(init+this->n()*i+j));
-}
-
-inline template<typename Elem> Matrix<Elem>::~Matrix()
-{
-    ;
 }
 
 inline template<typename Elem> Index Matrix<Elem>::m()
