@@ -284,11 +284,7 @@ template<typename Elem> Matrix<Elem> operator* (Elem lambda, Matrix<Elem> M)
 
 template<typename Elem> Matrix<Elem> operator* (Matrix<Elem> M, Elem lambda)
 {
-    Matrix <Elem> result(M.m(),M.n());
-    for(Index i=0;i<M.m();i++)
-        for(Index j=0;j<M.n();j++)
-	    result[i][j]=lambda*M[i][j];
-    return result;
+    return lambda*M;
 }
 
 template<typename Elem> Matrix<Elem> operator* (Matrix<Elem> first, Matrix<Elem> second)
