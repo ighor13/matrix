@@ -289,7 +289,7 @@ template<typename Elem> Matrix<Elem> operator* (Matrix<Elem> M, Elem lambda)
 
 template<typename Elem> Matrix<Elem> operator* (Matrix<Elem> first, Matrix<Elem> second)
 {
-    if(first.m()==second.n())
+    if(first.n()==second.m())
     {
 	Matrix <Elem> result(first.m(),second.n());
 	for(Index i=0;i<result.m();i++)
@@ -299,7 +299,7 @@ template<typename Elem> Matrix<Elem> operator* (Matrix<Elem> first, Matrix<Elem>
 	return result;
     }
     else
-	throw(char*) "First matrix m() must have equal to second matrix n(n)";
+	throw(char*) "First matrix n() must have equal to second matrix m()";
 }
 
 #endif

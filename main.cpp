@@ -6,8 +6,8 @@ using namespace std;
 
 typedef long double elem;
 
-const unsigned dimm=4;
-const unsigned dimn=5;
+const unsigned dimm=3;
+const unsigned dimn=3;
 
 void print(Matrix<elem> m, unsigned precision=7)
 {
@@ -21,13 +21,12 @@ void print(Matrix<elem> m, unsigned precision=7)
 
 int main(int argc, char* argv[])
 {
-    elem M[dimm][dimn]=
-    {
-
+/*
 	{1,		1,		2,		3,		-1	},
 	{2,		-1,		0,		-4,		-5	},
 	{-1,		-1,		0,		-3,		-2	},
 	{6,		3,		4,		8,		-3	},
+*/
 
 /*
 	{1,		2,		0,		1	},
@@ -56,20 +55,67 @@ int main(int argc, char* argv[])
 	{1,		0,		-1,		1	},
 	{1,		1,		1,		0	},
 */
+
+    elem M1[dimm][dimn]=
+    {
+
+	{3,		1,		1	},
+	{-3,		5,		6	},
+	{1,		-4,		-2	},
+
+    }
+    ;
+
+    elem M2[dimm][dimn]=
+    {
+
+	{14,		-2,		1	},
+	{0,		-7,		-21	},
+	{7,		13,		18	},
+
+    }
+    ;
+
+    elem M3[dimm][1]=
+    {
+
+	{-4,		},
+	{36,		},
+	{-19,		},
+
     }
     ;
 
 //    cout.setf(ios::scientific);
 
-    Matrix<elem> m(dimm,dimn,(elem*)M);
+    Matrix<elem> m1(dimm,dimn,(elem*)M1);
+    Matrix<elem> m2(dimm,dimn,(elem*)M2);
+    Matrix<elem> m3(dimm,1,(elem*)M3);
     cout<<"-m--------------------------------------------------------------------------------------"<<endl;
-    print(m);
+    print(m1);
     cout<<"----------------------------------------------------------------------------------------"<<endl;
 
-/*
-    cout<<"-m--------------------------------------------------------------------------------------"<<endl;
-    print(m);
+    cout<<"-m1*m2----------------------------------------------------------------------------------"<<endl;
+    print(m1*m2);
     cout<<"----------------------------------------------------------------------------------------"<<endl;
+
+    cout<<"-m3-------------------------------------------------------------------------------------"<<endl;
+    print(m3);
+    cout<<"----------------------------------------------------------------------------------------"<<endl;
+
+    cout<<"-m2*m3-------------------------------------------------------------------------------------"<<endl;
+    try
+    {
+        print(m2*m3);
+    }
+    catch(char* err)
+    {
+	cerr<<"Error: "<<err<<endl;
+    }
+    cout<<"----------------------------------------------------------------------------------------"<<endl;
+
+
+/*
 
     cout<<"-col1+=col2*2---------------------------------------------------------------------------"<<endl;
     print(m.AddColumn(1,2,2));
@@ -123,15 +169,15 @@ int main(int argc, char* argv[])
     cout<<endl;
     cout<<"----------------------------------------------------------------------------------------"<<endl;
 
+*/
     try
     {
-        cout<<"det(m)="<<setprecision(7)<<m.Determinant()<<endl;
+        cout<<"det(m1)="<<setprecision(7)<<m1.Determinant()<<endl;
     }
     catch(char* err)
     {
 	cerr<<"Error: "<<err<<endl;
     }
-*/
 
 
     return 0;
