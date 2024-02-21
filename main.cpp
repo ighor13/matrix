@@ -7,7 +7,7 @@ using namespace std;
 typedef long double elem;
 
 const unsigned dimm=4;
-const unsigned dimn=4;
+const unsigned dimn=5;
 
 void print(Matrix<elem> m, unsigned precision=7)
 {
@@ -24,10 +24,17 @@ int main(int argc, char* argv[])
     elem M[dimm][dimn]=
     {
 
+	{1,		1,		2,		3,		-1	},
+	{2,		-1,		0,		-4,		-5	},
+	{-1,		-1,		0,		-3,		-2	},
+	{6,		3,		4,		8,		-3	},
+
+/*
 	{1,		2,		0,		1	},
 	{3,		4,		2,		0	},
 	{5,		6,		7,		0	},
 	{7,		9,		2,		0	},
+*/
 
 /*
 	{0,		0,		0,		1	},
@@ -55,6 +62,11 @@ int main(int argc, char* argv[])
 //    cout.setf(ios::scientific);
 
     Matrix<elem> m(dimm,dimn,(elem*)M);
+    cout<<"-m--------------------------------------------------------------------------------------"<<endl;
+    print(m);
+    cout<<"----------------------------------------------------------------------------------------"<<endl;
+
+/*
     cout<<"-m--------------------------------------------------------------------------------------"<<endl;
     print(m);
     cout<<"----------------------------------------------------------------------------------------"<<endl;
@@ -119,6 +131,8 @@ int main(int argc, char* argv[])
     {
 	cerr<<"Error: "<<err<<endl;
     }
+*/
+
 
     return 0;
 }
