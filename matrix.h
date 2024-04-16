@@ -20,7 +20,7 @@ template <typename Elem> class Matrix
 	Index m(Index);
 	Index n(Index);
 	Elem& at(const Index,const Index); // element at (m,n) with index checking, throw(char*) in out of range
-	vector<Elem>& operator [] (const Index); // element at [m][n] without index checking
+	vector<Elem>& operator [] (const Index); // lvalue element at [m][n] without index checking
 	Matrix& DeleteRow(Index);
 	Matrix& DeleteColumn(Index);
 	Elem Determinant();
