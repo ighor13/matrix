@@ -41,10 +41,16 @@ template <typename Elem> class Matrix
 
 inline template<typename Elem> int Matrix<Elem>::pow(int x,Index n)
 {
+/*
     Elem p=1;
     for(Index i=0;i<n;i++)
 	p*=x;
     return p;
+*/
+    if(n==0)
+	return 1;
+    else
+	return x*pow(x,n-1);
 }
 
 inline template<typename Elem> Matrix<Elem>::Matrix()
