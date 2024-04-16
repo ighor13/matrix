@@ -6,22 +6,22 @@ using namespace std;
 
 typedef long double elem;
 
-const unsigned dimm=3;
-const unsigned dimn=3;
+const unsigned dimm=5;
+const unsigned dimn=5;
 
 void print(Matrix<elem> m, unsigned precision=7)
 {
     for(unsigned i=0;i<m.m();i++)
     {
 	for(unsigned j=0;j<m.n();j++)
-	    cout<<setw(10)<<setprecision(precision)<<m.at(i,j);
+	    cout<<setw(15)<<setprecision(precision)<<m.at(i,j);
 	cout<<endl;
     }
 }
 
 int main(int argc, char* argv[])
 {
-    elem M0[5][5]=
+    elem M0[dimm][dimm]=
     {
 	{1,		2,		3,		4,		5	},
 	{5,		4,		3,		2,		2	},
@@ -29,99 +29,24 @@ int main(int argc, char* argv[])
 	{6,		3,		4,		8,		-3	},
 	{1,		3,		7,		1,		-2	},
     };
-/*
-	{1,		2,		0,		1	},
-	{3,		4,		2,		0	},
-	{5,		6,		7,		0	},
-	{7,		9,		2,		0	},
-*/
-
-/*
-	{0,		0,		0,		1	},
-	{0,		0,		2,		0	},
-	{0,		3,		0,		0	},
-	{4,		0,		0,		0	},
-*/
-
-/*
-	{6,		2,		-10,		4	},
-	{-5,		-7,		-4,		1	},
-	{2,		4,		-2,		-6	},
-	{3,		0,		-5,		4	},
-*/
-
-/*
-	{1,		0,		-1,		0	},
-	{1,		1,		0,		1	},
-	{1,		0,		-1,		1	},
-	{1,		1,		1,		0	},
-*/
-
-    elem M1[dimm][dimn]=
-    {
-
-	{3,		1,		1	},
-	{-3,		5,		6	},
-	{1,		-4,		-2	},
-
-    }
-    ;
-
-    elem M2[dimm][dimn]=
-    {
-
-	{14,		-2,		1	},
-	{0,		-7,		-21	},
-	{7,		13,		18	},
-
-    }
-    ;
-
-    elem M3[dimm][1]=
-    {
-
-	{-4,		},
-	{36,		},
-	{-19,		},
-
-    }
-    ;
-
-    elem M4[3][3]=
-    {
-
-	{3,	2,	-3},
-	{2,	-3,	1},
-	{5,	-1,	-2},
-
-    }
-    ;
 
 //    cout.setf(ios::scientific);
 
-    Matrix<elem> m(5,5,(elem*)M0);
-//    print(m.Triangular(),2);
-
-/*
-    Matrix<elem> m1(dimm,dimn,(elem*)M1);
-    Matrix<elem> m2(dimm,dimn,(elem*)M2);
-    Matrix<elem> m3(dimm,1,(elem*)M3);
-    cout<<"-m--------------------------------------------------------------------------------------"<<endl;
-    print(m1);
+    Matrix<elem> m(dimm,dimm,(elem*)M0);
     cout<<"----------------------------------------------------------------------------------------"<<endl;
-
-    cout<<"-m1*m2----------------------------------------------------------------------------------"<<endl;
-    print(m1*m2);
-    cout<<"----------------------------------------------------------------------------------------"<<endl;
-
-    cout<<"-m3-------------------------------------------------------------------------------------"<<endl;
-    print(m3);
-    cout<<"----------------------------------------------------------------------------------------"<<endl;
-
-    cout<<"-m2*m3----------------------------------------------------------------------------------"<<endl;
     try
     {
-        print(m2*m3);
+        cout<<"det(m)="<<setprecision(7)<<m.Determinant()<<endl;
+    }
+    catch(char* err)
+    {
+	cerr<<"Error: "<<err<<endl;
+    }
+    cout<<"----------------------------------------------------------------------------------------"<<endl;
+    cout<<"-Trianhular(m)--------------------------------------------------------------------------"<<endl;
+    try
+    {
+	print(m.Triangular(),4);
     }
     catch(char* err)
     {
@@ -129,6 +54,15 @@ int main(int argc, char* argv[])
     }
     cout<<"----------------------------------------------------------------------------------------"<<endl;
 
+    cout<<"-m*m----------------------------------------------------------------------------------"<<endl;
+    try
+    {
+        print(m*m);
+    }
+    catch(char* err)
+    {
+	cerr<<"Error: "<<err<<endl;
+    }
 
     cout<<"-col1+=col2*2---------------------------------------------------------------------------"<<endl;
     print(m.AddColumn(1,2,2));
@@ -154,7 +88,7 @@ int main(int argc, char* argv[])
     print(m.Triangular(),2);
     cout<<"----------------------------------------------------------------------------------------"<<endl;
     cout<<"det(Triangular)="<<setprecision(7)<<m.Triangular().Determinant()<<endl;
-    cout<<".at(3,0)="<<setprecision(20)<<m.Triangular()[3][0]<<endl;
+    cout<<".at(1,3)="<<setprecision(20)<<m.Triangular()[1][3]<<endl;
     cout<<"----------------------------------------------------------------------------------------"<<endl;
 
     cout<<"-m.Triangular().Transpose()-------------------------------------------------------------"<<endl;
@@ -181,18 +115,6 @@ int main(int argc, char* argv[])
         cout<<setw(10)<<setprecision(4)<<*i;
     cout<<endl;
     cout<<"----------------------------------------------------------------------------------------"<<endl;
-
-*/
-    cout<<"----------------------------------------------------------------------------------------"<<endl;
-    try
-    {
-        cout<<"det(m)="<<setprecision(7)<<m.Determinant()<<endl;
-    }
-    catch(char* err)
-    {
-	cerr<<"Error: "<<err<<endl;
-    }
-
 
     return 0;
 }
